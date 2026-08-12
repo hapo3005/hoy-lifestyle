@@ -27,6 +27,47 @@ Dazu gehören unter anderem:
 - Indoor-Aktivitäten
 - außergewöhnliche Erlebnisse und Tagesausflüge
 
+## Rentals als eigener Kernbereich
+
+Vermietungen werden nicht als unscharfe Unterkategorie von „Aktivitäten“ behandelt,
+sondern als eigener Produktbereich innerhalb von HOY Lifestyle.
+
+Dazu gehören insbesondere:
+
+### Land
+- Fahrräder
+- E-Bikes
+- Rennräder / Mountainbikes
+- Roller / Mopeds
+- Motorräder
+- Quads
+- Buggys
+- Mietwagen
+- Vans / 7-Sitzer
+
+### Wasser
+- Motorboote mit Führerschein
+- Boote ohne Führerschein
+- Boote mit Skipper
+- Segelboote
+- Jetskis
+- Kajaks
+- SUP
+- Tretboote und weitere Wassersport-Ausrüstung
+
+HOY soll dabei nicht nur Anbieter auflisten, sondern möglichst beantworten:
+
+- Was kann ich heute noch mieten?
+- Was kostet es?
+- Wo kann ich es abholen?
+- Wird es zur Unterkunft geliefert?
+- Brauche ich einen Führerschein / Bootsführerschein?
+- Wie hoch ist die Kaution?
+- Was ist im Preis enthalten?
+- Für wie viele Personen ist das Produkt geeignet?
+
+Der Bereich bleibt Teil von HOY Lifestyle. Eine separate Rental-App ist derzeit nicht gerechtfertigt.
+
 ## Produktprinzip
 
 HOY Lifestyle ist kein klassisches Branchenverzeichnis.
@@ -64,6 +105,8 @@ Lifestyle-spezifisch bleiben insbesondere:
 
 - Places
 - Experiences
+- Rentals
+- Rental Products
 - Sessions
 - Events
 - Availability
@@ -73,4 +116,9 @@ Lifestyle-spezifisch bleiben insbesondere:
 
 Aktuell befindet sich HOY Lifestyle in der Daten- und Produktvorbereitung.
 
-Die eigentliche App-Entwicklung beginnt nach Fertigstellung des stabilen HOY-Gastro-Core.# hoy-lifestyle
+Die erste strukturierte Rental-Recherche liegt unter:
+
+- `docs/RENTALS-V0.1.md`
+- `data/rentals-research-v0.1.csv`
+
+Die eigentliche App-Entwicklung beginnt nach Fertigstellung des stabilen HOY-Gastro-Core.
