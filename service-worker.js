@@ -1,6 +1,6 @@
-const CACHE = "hoy-lifestyle-preview-v0.3.1";
+const CACHE = "hoy-lifestyle-preview-v0.4.0";
 const APP_SHELL = [
-  "./", "./index.html", "./operator.html", "./styles.css", "./operator.css", "./gastro-parity-preview.css", "./preview-nav.css", "./app.js", "./operator.js",
+  "./", "./index.html", "./operator.html", "./styles.css", "./operator.css", "./gastro-parity-preview.css", "./preview-nav.css", "./media-preview.css", "./app.js", "./operator.js",
   "./src/catalog.js", "./src/decision-engine.js", "./src/trust.js", "./data/lifestyle-catalog-index.json", "./manifest.webmanifest",
   "./data/catalog/lifestyle-001-010.json", "./data/catalog/lifestyle-011-020.json", "./data/catalog/lifestyle-021-030.json",
   "./data/catalog/lifestyle-031-040.json", "./data/catalog/lifestyle-041-050.json", "./data/catalog/lifestyle-051-060.json",
