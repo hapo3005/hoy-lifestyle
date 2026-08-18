@@ -1,0 +1,9 @@
+{
+  "coreVersion": "1.0.0",
+  "contractVersion": "HOY-PC-1.0",
+  "sourceRepo": "hapo3005/hoy",
+  "sourceCommit": "f4f2429b190646d22b5587ae900a8ec3d09dc0fa",
+  "sourcePath": "platform-core/hoy-platform-core-v1.js",
+  "gitBlobSha": "c1740b652bc22af2beb868dc8c36049411692474",
+  "vendorPath": "vendor/hoy-platform-core-v1.js"
+}
