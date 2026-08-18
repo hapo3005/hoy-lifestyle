@@ -1,24 +1,17 @@
-const parse=v=>{const d=new Date(v);return Number.isFinite(d.getTime())?d:null};
-const clean=v=>String(v??'').trim().toLowerCase();
+import '../vendor/hoy-platform-core-v1.js';
+
+const core=globalThis.HOYPlatformCore;
+if(!core||core.CORE_VERSION!=='1.0.0')throw new Error('HOY Platform Core v1 unavailable');
 
 export function sponsorshipState(item,now=new Date()){
-  const placement=item?.commercial?.placement;
-  if(!placement)return{eligible:false,label:null,reason:'none'};
-  if(item?.suppressed)return{eligible:false,label:null,reason:'suppressed'};
-  if(clean(placement.status)!=='active')return{eligible:false,label:null,reason:'inactive'};
-  if(placement.disclosureRequired!==true)return{eligible:false,label:null,reason:'disclosure_missing'};
-  if(clean(placement.reviewState)!=='approved')return{eligible:false,label:null,reason:'not_approved'};
-  const start=parse(placement.startsAt),end=parse(placement.endsAt);
-  if(start&&now<start)return{eligible:false,label:null,reason:'not_started'};
-  if(end&&now>end)return{eligible:false,label:null,reason:'expired'};
-  return{eligible:true,label:'Anzeige',reason:'active'};
+  return core.sponsorshipState(item,now);
 }
 
 export function decorateOrganicRows(rows,now=new Date()){
   return(rows||[]).map((row,index)=>({
     ...row,
     organicRank:index+1,
-    sponsorship:sponsorshipState(row.item,now)
+    sponsorship:core.sponsorshipState(row.item,now)
   }));
 }
 
