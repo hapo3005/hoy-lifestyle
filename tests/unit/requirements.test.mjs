@@ -1,8 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {evaluateRequirement,evaluateRequirements,MATCH_STATES} from '../../src/requirements.js';
+import {evaluateRequirement,evaluateRequirements,MATCH_STATES,PLATFORM_CORE} from '../../src/requirements.js';
 
 const confirmed=value=>({value,verification:'business_confirmed',isCurrent:true});
+
+test('Lifestyle is pinned to HOY Platform Core v1',()=>{
+  assert.equal(PLATFORM_CORE.CORE_VERSION,'1.0.0');
+  assert.equal(PLATFORM_CORE.CONTRACT_VERSION,'HOY-PC-1.0');
+});
 
 test('confirmed MUST yes is a match',()=>{
   assert.equal(evaluateRequirement(confirmed('yes'),{key:'step_free',level:'MUST',value:'yes'}).state,MATCH_STATES.MATCH);
@@ -10,6 +15,11 @@ test('confirmed MUST yes is a match',()=>{
 
 test('confirmed MUST no is a hard no-match',()=>{
   assert.equal(evaluateRequirement(confirmed('no'),{key:'step_free',level:'MUST',value:'yes'}).state,MATCH_STATES.NO_MATCH);
+});
+
+test('confirmed partial or temporarily unavailable cannot satisfy MUST yes',()=>{
+  assert.equal(evaluateRequirement(confirmed('partial'),{key:'step_free',level:'MUST',value:'yes'}).state,MATCH_STATES.NO_MATCH);
+  assert.equal(evaluateRequirement(confirmed('temporarily_unavailable'),{key:'step_free',level:'MUST',value:'yes'}).state,MATCH_STATES.NO_MATCH);
 });
 
 test('external and unknown evidence fail closed to confirmation needed',()=>{
