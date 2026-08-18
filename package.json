@@ -1,10 +1,12 @@
 {
   "name": "hoy-lifestyle",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "qa:static": "node scripts/check-runtime-contracts.mjs",
+    "platform:check": "node scripts/sync-platform-core.mjs --check",
+    "platform:sync": "node scripts/sync-platform-core.mjs",
+    "qa:static": "node scripts/sync-platform-core.mjs --check && node scripts/check-runtime-contracts.mjs",
     "qa:unit": "node --test tests/unit/*.test.mjs",
     "qa:e2e": "playwright test",
     "qa": "npm run qa:static && npm run qa:unit"
