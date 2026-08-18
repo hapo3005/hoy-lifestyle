@@ -1,0 +1,7 @@
+import test from "node:test";import assert from "node:assert/strict";import fs from "node:fs";import path from "node:path";import { fileURLToPath } from "node:url";
+const here=path.dirname(fileURLToPath(import.meta.url));const root=path.resolve(here,"../..");const index=JSON.parse(fs.readFileSync(path.join(root,"data/lifestyle-catalog-index.json"),"utf8"));const records=index.chunks.flatMap(chunk=>JSON.parse(fs.readFileSync(path.join(root,chunk.replace(/^\.\//,"")),"utf8")));
+test("catalog contract and record count are stable",()=>{assert.equal(index.contractVersion,"1.0.0");assert.equal(index.recordCount,101);assert.equal(records.length,101);});
+test("IDs and slugs are unique",()=>{assert.equal(new Set(records.map(x=>x.id)).size,101);assert.equal(new Set(records.map(x=>x.slug)).size,101);});
+test("public URLs are HTTPS-only",()=>{for(const row of records){const urls=[row.contact?.bookingUrl,row.geo?.mapUrl,...(row.trust?.sourceUrls||[])].filter(Boolean);for(const url of urls)assert.match(url,/^https:\/\//);}});
+test("unknown accessibility does not get silently rewritten",()=>{const unknown=records.filter(x=>/not (publicly )?verified|not audited/i.test(x.accessibility.status));assert.ok(unknown.length>0);for(const row of unknown)assert.equal(row.trust.hoyVerified,false);});
+test("exactly the known suppressed research row is excluded",()=>assert.equal(records.filter(x=>x.suppressed).length,1));

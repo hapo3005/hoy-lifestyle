@@ -1,0 +1,9 @@
+{
+  "contractVersion": "1.0.0",
+  "generatedAt": "2026-08-18T11:51:00+02:00",
+  "region": {"id":"la-manga-core","name":"La Manga del Mar Menor / Cabo de Palos","countryCode":"ES","timezone":"Europe/Madrid","currency":"EUR"},
+  "recordCount": 101,
+  "chunks": [
+    "./data/catalog/lifestyle-001-010.json","./data/catalog/lifestyle-011-020.json","./data/catalog/lifestyle-021-030.json","./data/catalog/lifestyle-031-040.json","./data/catalog/lifestyle-041-050.json","./data/catalog/lifestyle-051-060.json","./data/catalog/lifestyle-061-070.json","./data/catalog/lifestyle-071-080.json","./data/catalog/lifestyle-081-090.json","./data/catalog/lifestyle-091-100.json","./data/catalog/lifestyle-101-101.json"
+  ]
+}

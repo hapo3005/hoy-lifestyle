@@ -1,0 +1,11 @@
+{
+  "name": "HOY Lifestyle",
+  "short_name": "HOY Lifestyle",
+  "description": "Was kann ich heute, jetzt und hier machen?",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f6f4ef",
+  "theme_color": "#102f2b",
+  "lang": "de",
+  "icons": []
+}
