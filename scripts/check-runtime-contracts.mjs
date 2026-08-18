@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 const root=process.cwd();
-const required=["index.html","operator.html","app.js","operator.js","styles.css","service-worker.js","manifest.webmanifest","src/catalog.js","src/decision-engine.js","src/trust.js","data/lifestyle-catalog-index.json","data/contracts/lifestyle-catalog-index-v1.schema.json","supabase/migrations/20260818_lifestyle_quality_foundation.sql","docs/QUALITY_STANDARD.md"];
+const required=["index.html","operator.html","app.js","operator.js","styles.css","service-worker.js","manifest.webmanifest","src/catalog.js","src/decision-engine.js","src/trust.js","src/requirements.js","src/commercial-integrity.js","data/lifestyle-catalog-index.json","data/contracts/lifestyle-catalog-index-v1.schema.json","supabase/migrations/20260818_lifestyle_quality_foundation.sql","docs/QUALITY_STANDARD.md","docs/VERTICAL_PARITY.md"];
 const missing=required.filter(file=>!fs.existsSync(path.join(root,file)));if(missing.length)throw new Error(`Missing runtime contract files: ${missing.join(", ")}`);
 const index=JSON.parse(fs.readFileSync(path.join(root,"data/lifestyle-catalog-index.json"),"utf8"));
 const records=index.chunks.flatMap(chunk=>JSON.parse(fs.readFileSync(path.join(root,chunk.replace(/^\.\//,"")),"utf8")));
@@ -12,4 +12,10 @@ if(new Set(records.map(r=>r.slug)).size!==records.length)throw new Error("Duplic
 const bad=[];for(const row of records){const urls=[row.contact?.bookingUrl,row.geo?.mapUrl,...(row.trust?.sourceUrls||[])].filter(Boolean);urls.forEach(url=>{if(!String(url).startsWith("https://"))bad.push([row.id,url]);});}if(bad.length)throw new Error(`Non-HTTPS public URLs found: ${JSON.stringify(bad.slice(0,5))}`);
 const sw=fs.readFileSync(path.join(root,"service-worker.js"),"utf8");if(!sw.includes('url.origin !== self.location.origin'))throw new Error("Service worker must enforce same-origin cache boundary");if(!sw.includes('/auth/')||!sw.includes('/rest/')||!sw.includes('/functions/'))throw new Error("Service worker API/auth exclusions missing");
 const html=fs.readFileSync(path.join(root,"index.html"),"utf8");if(html.includes("navigator.geolocation.getCurrentPosition"))throw new Error("Geolocation must not be requested inline during initial HTML bootstrap");
-console.log(JSON.stringify({ok:true,records:records.length,p1:records.filter(r=>r.priority==="P1").length,suppressed:records.filter(r=>r.suppressed).length,chunks:index.chunks.length,checks:required.length},null,2));
+const engine=fs.readFileSync(path.join(root,"src/decision-engine.js"),"utf8");
+if(!engine.includes('evaluateRequirements')||!engine.includes('MATCH_STATES.NO_MATCH'))throw new Error("Canonical MUST/PREFER requirement gate is not wired into ranking");
+const commercial=fs.readFileSync(path.join(root,"src/commercial-integrity.js"),"utf8");
+if(!commercial.includes("disclosureRequired")||!commercial.includes("organicRank"))throw new Error("Commercial integrity contract is incomplete");
+const parity=fs.readFileSync(path.join(root,"docs/VERTICAL_PARITY.md"),"utf8");
+for(const token of ["MUST / PREFER / IGNORE","Commercial integrity","PARITY_CODE_COMPLETE"]){if(!parity.includes(token))throw new Error(`Parity contract missing: ${token}`)}
+console.log(JSON.stringify({ok:true,records:records.length,p1:records.filter(r=>r.priority==="P1").length,suppressed:records.filter(r=>r.suppressed).length,chunks:index.chunks.length,checks:required.length,parity:"PARITY_CODE_COMPLETE"},null,2));
