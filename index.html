@@ -3,21 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#102f2b">
+  <meta name="theme-color" content="#f8f3e9">
   <meta name="description" content="HOY Lifestyle — was passt heute, jetzt und hier?">
   <title>HOY Lifestyle</title>
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./gastro-parity-preview.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Zum Inhalt springen</a>
   <header class="topbar">
     <a class="brand" href="./" aria-label="HOY Lifestyle Startseite">
-      <span class="brand-mark">HOY</span>
+      <span class="brand-mark">HO<em>Y</em></span>
       <span class="brand-sub">Lifestyle</span>
     </a>
     <div class="top-actions">
-      <button class="ghost" type="button" data-location aria-describedby="location-privacy">Standort verwenden</button>
+      <button class="ghost" type="button" data-location aria-describedby="location-privacy">Standort</button>
       <a class="ghost" href="./operator.html">Für Anbieter</a>
     </div>
   </header>
@@ -25,15 +26,15 @@
   <main id="main">
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <p class="eyebrow">La Manga · Cabo de Palos</p>
+        <p class="eyebrow">LA MANGA · CABO DE PALOS</p>
         <h1 id="hero-title">Was passt <em>jetzt?</em></h1>
-        <p class="hero-intro">HOY verbindet Zeit, Verfügbarkeit, Regeln, Wettertauglichkeit und Datenfrische — damit du nicht nur etwas findest, sondern etwas, das gerade sinnvoll ist.</p>
+        <p class="hero-intro">Aktivitäten und Erlebnisse, die zu deinem Moment passen — statt einfach nur alles aufzulisten.</p>
         <p class="privacy-note" id="location-privacy">Dein genauer Standort wird nur nach deinem Klick verwendet und nicht automatisch gespeichert.</p>
       </div>
       <aside class="context-card" aria-label="Aktueller HOY Kontext">
-        <span class="context-label">Dein Moment</span>
+        <span class="context-label">DEIN MOMENT</span>
         <strong data-context-time>Heute</strong>
-        <span data-context-location>La Manga / Cabo de Palos</span>
+        <span data-context-location>La Manga · Cabo de Palos</span>
         <span class="trust-mini">101 recherchierte Einträge · Quellenstatus sichtbar</span>
       </aside>
     </section>
@@ -44,7 +45,7 @@
           <p class="eyebrow">HOY NOW</p>
           <h2 id="decision-title">Was möchtest du machen?</h2>
         </div>
-        <button class="text-button" type="button" data-reset>Filter zurücksetzen</button>
+        <button class="text-button" type="button" data-reset>Zurücksetzen</button>
       </div>
 
       <div class="preset-row" role="group" aria-label="Situation auswählen">
@@ -59,7 +60,7 @@
 
       <div class="filters">
         <label><span>Kategorie</span><select data-category><option value="">Alles</option></select></label>
-        <label><span>Suche</span><input data-search type="search" autocomplete="off" placeholder="z. B. Kajak, Tauchen, Markt"></label>
+        <label><span>Suche</span><input data-search type="search" autocomplete="off" placeholder="Kajak, Tauchen, Markt …"></label>
       </div>
 
       <div class="result-meta" aria-live="polite"><span data-result-count>–</span><span data-result-mode>Nach Jetzt-Relevanz sortiert</span></div>
@@ -68,11 +69,11 @@
     </section>
 
     <section class="trust-section" aria-labelledby="trust-title">
-      <p class="eyebrow">Warum HOY anders sortiert</p><h2 id="trust-title">Relevanz vor Reichweite.</h2>
+      <p class="eyebrow">WARUM HOY?</p><h2 id="trust-title">Relevanz vor Reichweite.</h2>
       <div class="trust-grid">
-        <article><strong>Harte Regeln zuerst</strong><p>Geschlossene, ungeeignete oder nicht belastbar verfügbare Optionen werden nicht schön gerankt.</p></article>
-        <article><strong>Frische ist sichtbar</strong><p>Research, Betreiberbestätigung und echte Live-Daten bleiben getrennte Vertrauensstufen.</p></article>
-        <article><strong>Accessibility ohne Pauschalurteil</strong><p>Nur konkrete belegte Merkmale erzeugen einen positiven Accessibility-Match.</p></article>
+        <article><strong>Passt es wirklich?</strong><p>Ungeeignete oder nicht belastbar verfügbare Optionen werden nicht schön gerankt.</p></article>
+        <article><strong>Wie aktuell ist es?</strong><p>Recherche, Betreiberbestätigung und echte Live-Daten bleiben getrennte Vertrauensstufen.</p></article>
+        <article><strong>Was wissen wir konkret?</strong><p>Accessibility und andere sensible Merkmale werden nur mit belegten Fakten positiv gematcht.</p></article>
       </div>
     </section>
   </main>
