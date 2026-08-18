@@ -1,124 +1,76 @@
 # HOY Lifestyle
 
-HOY Lifestyle ist die Schwester-App von HOY Gastro für La Manga del Mar Menor,
-Cabo de Palos und die relevante Umgebung.
+HOY Lifestyle beantwortet für La Manga del Mar Menor, Cabo de Palos und die relevante Umgebung eine konkrete Frage:
 
-## Produktidee
+> **Was kann ich heute, jetzt und hier machen?**
 
-HOY Lifestyle beantwortet die Frage:
+Es ist keine statische Tourismus- oder Branchenliste. Die Produktlogik kombiniert Aktivität, Zeitfenster, Verfügbarkeit, Restriktionen, Wetterkontext, Family-/Accessibility-Bedarf und Datenfrische.
 
-**„Was kann ich heute, jetzt und hier machen?“**
+## Qualitätsziel
 
-Die App soll Freizeitangebote nicht nur auffindbar machen, sondern auch Aktivitäten
-entdecken lassen, von denen Nutzer bisher möglicherweise noch nichts wussten.
+Lifestyle wird auf denselben Produkt- und Engineering-Maßstab wie HOY Gastro gebracht:
 
-Dazu gehören unter anderem:
+- explizite Trust-/Freshness-Zustände;
+- keine erfundenen Live-Aussagen;
+- konkrete Accessibility-Attribute statt Pauschalbadge;
+- Betreiberverifizierung und auditable Datenherkunft;
+- PWA-Cache-Grenzen;
+- Supabase RLS/Authorization contract;
+- unit + browser QA;
+- Mobile Chrome, Mobile WebKit und Desktop Chromium als Release-Matrix;
+- null bekannte/unexplained Release-Failures als Ziel.
 
-- Wassersport
-- Tauchen & Schnorcheln
-- Boot & Segeln
-- Reiten
-- Fitness
-- Padel & Tennis
-- Familie & Kinder
-- Natur
-- Wellness
-- Events & Märkte
-- Indoor-Aktivitäten
-- außergewöhnliche Erlebnisse und Tagesausflüge
+Siehe [`docs/QUALITY_STANDARD.md`](docs/QUALITY_STANDARD.md).
 
-## Rentals als eigener Kernbereich
+## Aktueller vertikaler Slice
 
-Vermietungen werden nicht als unscharfe Unterkategorie von „Aktivitäten“ behandelt,
-sondern als eigener Produktbereich innerhalb von HOY Lifestyle.
+Der Stand enthält:
 
-Dazu gehören insbesondere:
+- 101 strukturierte Lifestyle-Research-Datensätze aus dem aktuellen Masterbestand;
+- Nutzer-Home mit HOY NOW Ranking;
+- Presets: Jetzt, Heute, Mit Kindern, Drinnen, Sunset, Barrierefreiheit, Überrasch mich;
+- Activity/Provider-Detail mit Preis, Regeln, Trust, Accessibility und Quellen;
+- explizit opt-in Geolocation;
+- Betreiber-Arbeitsplatz für lokale, **nicht veröffentlichte** Vorprüfung;
+- PWA Service Worker mit Same-Origin-Cache-Grenze;
+- versionierten Catalog Contract;
+- Supabase Domain/RLS Foundation;
+- Edge-Discovery-Adapter;
+- statische/unit/browser QA und GitHub Gates.
 
-### Land
-- Fahrräder
-- E-Bikes
-- Rennräder / Mountainbikes
-- Roller / Mopeds
-- Motorräder
-- Quads
-- Buggys
-- Mietwagen
-- Vans / 7-Sitzer
+## Daten
 
-### Wasser
-- Motorboote mit Führerschein
-- Boote ohne Führerschein
-- Boote mit Skipper
-- Segelboote
-- Jetskis
-- Kajaks
-- SUP
-- Tretboote und weitere Wassersport-Ausrüstung
+Aktueller importierter Research-Snapshot:
 
-HOY soll dabei nicht nur Anbieter auflisten, sondern möglichst beantworten:
+- `data/lifestyle-catalog-index.json` + versionierte Chunks unter `data/catalog/`
+- Contract: `data/contracts/lifestyle-catalog-index-v1.schema.json` + `data/contracts/lifestyle-record-v1.schema.json`
 
-- Was kann ich heute noch mieten?
-- Was kostet es?
-- Wo kann ich es abholen?
-- Wird es zur Unterkunft geliefert?
-- Brauche ich einen Führerschein / Bootsführerschein?
-- Wie hoch ist die Kaution?
-- Was ist im Preis enthalten?
-- Für wie viele Personen ist das Produkt geeignet?
+Wichtig: Ein Research-Datensatz ist nicht automatisch `OWNER_CONFIRMED`, `HOY_VERIFIED` oder `LIVE_TODAY`.
 
-Der Bereich bleibt Teil von HOY Lifestyle. Eine separate Rental-App ist derzeit nicht gerechtfertigt.
+## HOY NOW Organic Score
 
-## Produktprinzip
+100 Punkte: Intent/category 25 · Availability 20 · Time window 15 · Distance/travel 10 · Weather/context 10 · Family/access preference 5 · Trust/freshness 10 · Variety/serendipity 5.
 
-HOY Lifestyle ist kein klassisches Branchenverzeichnis.
+Harte Gates laufen **vor** dem Score. Gesponserte Platzierung verändert den organischen Score nicht.
 
-Im Mittelpunkt stehen:
+## Lokale QA
 
-- Was ist heute möglich?
-- Was ist jetzt noch möglich?
-- Was findet heute Abend statt?
-- Was ist kostenlos?
-- Was eignet sich mit Kindern?
-- Was ist bei Hitze oder schlechtem Wetter geeignet?
-- Was ist in sinnvoller Fahrzeit erreichbar?
-- Was könnte mich überraschen?
+```bash
+npm install --no-audit --no-fund
+npm run qa
+npm run qa:e2e
+```
 
-## Technische Strategie
+Browser-Matrix: Mobile Chromium · Mobile WebKit · Desktop Chromium.
 
-HOY Lifestyle wird nicht unabhängig von Grund auf neu entwickelt.
+## Supabase
 
-Zuerst wird HOY Gastro vollständig und stabil fertiggestellt.
-Anschließend wird dessen bewährter HOY-Unterbau als Basis für HOY Lifestyle verwendet.
+Die Migration `supabase/migrations/20260818_lifestyle_quality_foundation.sql` definiert das Domain- und RLS-Fundament. Sie ist absichtlich fail-closed: nicht ausdrücklich autorisierte Betreiber-Mutationen bleiben trotz Tabellen-GRANT durch RLS gesperrt, bis die jeweilige Policy und ihre Tests vorhanden sind.
 
-Gemeinsam genutzt werden sollen unter anderem:
+Vor Production: reales Projekt integrieren; RLS/GRANT- und Advisor-Checks ausführen; Owner-Claim-Authorization testen; Production Smoke Test durchführen.
 
-- HOY Designsystem
-- Navigation und App-Shell
-- Karten- und Standortlogik
-- Mehrsprachigkeit
-- Favoriten
-- Supabase-Grundarchitektur
-- Live- und Aktualitätslogik
-- gemeinsame UI-Komponenten
+## Produktbereiche
 
-Lifestyle-spezifisch bleiben insbesondere:
+Wasser & Meer · Tauchen · Boot & Charter · Familie & Spaß · Natur & Outdoor · Sport & Fitness · Wellness · Kultur & Lokales · Mobilität/Rentals · Events & Märkte.
 
-- Places
-- Experiences
-- Rentals
-- Rental Products
-- Sessions
-- Events
-- Availability
-- Freizeitkategorien und Filter
-
-## Status
-
-Aktuell befindet sich HOY Lifestyle in der Daten- und Produktvorbereitung.
-
-Die erste strukturierte Rental-Recherche liegt unter:
-
-- `docs/RENTALS-V0.1.md`
-- `data/rentals-research-v0.1.csv`
-
-Die eigentliche App-Entwicklung beginnt nach Fertigstellung des stabilen HOY-Gastro-Core.
+Rentals bleiben ein Kernbereich von HOY Lifestyle, keine separate App.

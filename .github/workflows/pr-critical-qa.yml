@@ -1,0 +1,22 @@
+name: Lifestyle critical QA
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+concurrency:
+  group: lifestyle-critical-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  contracts-and-unit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+      - run: npm install --no-audit --no-fund
+      - run: npm run qa:static
+      - run: npm run qa:unit

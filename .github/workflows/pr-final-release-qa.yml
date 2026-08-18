@@ -1,0 +1,21 @@
+name: Lifestyle final release QA
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  release-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+      - run: npm install --no-audit --no-fund
+      - run: npm run qa:static
+      - run: npm run qa:unit
+      - run: npx playwright install --with-deps
+      - run: npx playwright test --project=mobile-chromium --retries=0
+      - run: npx playwright test --project=mobile-webkit --retries=0
+      - run: npx playwright test --project=desktop-chromium --retries=0
